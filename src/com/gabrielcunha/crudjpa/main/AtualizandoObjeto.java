@@ -6,25 +6,21 @@ import javax.persistence.Persistence;
 
 import com.gabrielcunha.crudjpa.model.Cliente;
 
-public class SalvandoPrimeiroObjeto {
+public class AtualizandoObjeto {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testePU");
 		EntityManager em = emf.createEntityManager();
 		
-		Cliente cliente = new Cliente();
-		cliente.setNome("Alice Moreira");
-		cliente.setIdade(8);
+		Cliente cliente = em.find(Cliente.class, 1L);
+		
+		cliente.setNome("Jesus Cristo meu rei");
+		cliente.setIdade(32);
 		
 		em.getTransaction().begin();
-		em.persist(cliente);
+		em.merge(cliente);
 		em.getTransaction().commit();
-		
-		System.out.println("Cliente salvo com sucesso");
-		
-//		em.close();
-		
 		
 	}
 	
